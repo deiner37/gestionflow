@@ -1,0 +1,32 @@
+.sidebar {
+  transition: all 0.3s ease;
+}
+
+.sidebar:hover {
+  width: 260px;
+}
+
+ul.nav a{
+	cursor: pointer;
+}
+ul.nav a:hover{
+	text-decoration: underline;
+}
+
+.content-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.card {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+}
+
+.btn-primary, .btn-success {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover, .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

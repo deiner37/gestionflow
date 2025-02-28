@@ -1,0 +1,27 @@
+
+<nav class="sidebar bg-dark text-white p-3" style="width: 250px; height: 100vh; position: fixed; top: 0; left: 0; z-index: 1000;">
+  <div class="sidebar-header mb-4">
+    <h5 class="text-center">GestioFlow</h5>
+  </div>
+  <ul class="nav flex-column">
+    <li class="nav-item mb-2">
+      <a class="nav-link text-white" href="#" [routerLink]="['/home']">Dashboard</a> 
+    </li>
+    <li class="nav-item mb-2">
+      <a class="nav-link text-white" href="#" [routerLink]="['/home/products']">Products</a>
+    </li>
+    <li class="nav-item mb-2">
+      <a class="nav-link text-white" href="#" [routerLink]="['/home/invoices']">Invoices</a>
+    </li>
+    <li class="nav-item mb-2" *ngIf="authService.isAdmin()">
+      <a class="nav-link text-white" href="#" [routerLink]="['/home/users']">User Manager</a>
+    </li>
+    <li class="nav-item mb-2">
+      <a class="nav-link text-white" (click)="logout()">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+<div #contentContainer class="content-container" style="margin-left: 250px; padding: 20px; z-index: 1;">
+  <router-outlet></router-outlet>
+</div>

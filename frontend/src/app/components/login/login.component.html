@@ -1,0 +1,24 @@
+<div class="login-container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px; border-radius: 15px;">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4" style="color: #2c3e50;">Login</h2>
+      <form #loginForm (ngSubmit)="login()" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-3" style="background-color: #3498db; border: none;">Login</button>
+        <p class="text-center">
+          Don't have an account? <a routerLink="/register" class="text-decoration-none" style="color: #27ae60;">Register here</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
