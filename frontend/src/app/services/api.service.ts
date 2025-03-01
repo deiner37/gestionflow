@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ApiService {
 	private httpOptions = {
 		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 	};
-  private baseUrl = 'http://192.168.180.10:3000';
+  private baseUrl = `http://${environment.apiBaseUrl}:3000`;
 
   constructor() {}
 
