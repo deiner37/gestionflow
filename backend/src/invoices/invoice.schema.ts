@@ -29,9 +29,6 @@ export class Invoice {
   @Prop({ required: true, type: Number, min: 0 })
   total: number;
 
-  @Prop({ required: true, enum: ['pending', 'paid', 'cancelled'], default: 'pending' })
-  status: 'pending' | 'paid' | 'cancelled';
-
   @Prop({ type: Date, default: Date.now })
   date: Date;
 }
