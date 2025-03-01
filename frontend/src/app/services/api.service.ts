@@ -12,7 +12,7 @@ export class ApiService {
 	private httpOptions = {
 		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 	};
-  private baseUrl = `http://${environment.apiBaseUrl}:3000`;
+  private baseUrl = `${environment.apiBaseUrl}`;
 
   constructor() {}
 
