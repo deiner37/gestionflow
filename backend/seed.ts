@@ -64,9 +64,21 @@ async function seedDatabase() {
     // Insertar factura por defecto para el usuario
     const invoice = new InvoiceModel({
       user_id: user._id,
+			username: 'Usuario',
       products: [
-        { product_id: laptop._id, quantity: 1 },
-        { product_id: phone._id, quantity: 2 },
+        { 
+					product_id: laptop._id, 
+					name: 'Laptop',
+					price: 1200,
+					quantity: 1,
+
+				},
+        { 
+					product_id: phone._id, 
+					quantity: 2,
+					name: 'Smartphone',
+					price: 600,
+				},
       ],
       total: laptop.price * 1 + phone.price * 2, // 1200 + 1200 = 2400
       date: new Date(),
