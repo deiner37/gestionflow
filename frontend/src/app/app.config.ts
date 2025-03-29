@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,11 @@ export const appConfig: ApplicationConfig = {
 		provideHttpClient(withInterceptorsFromDi()),
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-		//provideAnimations(),
+		provideAnimations(),
+		provideToastr({ // Configura ngx-toastr
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
 	]
 };

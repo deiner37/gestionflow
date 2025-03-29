@@ -39,7 +39,9 @@ export class InvoicesService {
     // Reduce stock for each product after verification
     for (const product of createInvoiceDto.products) {
       const dbProduct = await this.productsService.findOne(product.productId);
-			if(dbProduct) await this.productsService.updateStock(product.productId, dbProduct.stock - product.quantity);
+			if(dbProduct){
+				await this.productsService.updateStock(product.productId, product.quantity);
+			}
     }
 
     // Calculate total based on products and quantities (optional, if not provided in DTO)
@@ -57,7 +59,7 @@ export class InvoicesService {
 
     const invoice = new this.invoiceModel({
       ...createInvoiceDto,
-      total: total || createInvoiceDto.total, // Use provided total or calculate it
+      total: total, // Use provided total or calculate it
       date: new Date(),
     });
     return invoice.save();

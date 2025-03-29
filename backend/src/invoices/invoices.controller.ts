@@ -8,11 +8,12 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '../auth/role.enum';
 import { UnauthorizedException } from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('invoices')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class InvoicesController {
-  constructor(private readonly invoicesService: InvoicesService) {}
+  constructor(private readonly invoicesService: InvoicesService, private readonly usersService: UsersService) {}
 
   @Get()
   @Roles(Role.User, Role.Admin)
@@ -39,8 +40,13 @@ export class InvoicesController {
   @Post()
   @Roles(Role.User)
   async create(@Body() createInvoiceDto: CreateInvoiceDto, @Request() req: any): Promise<Invoice> {
-    createInvoiceDto.userId = req.user.userId; // Associate the invoice with the authenticated user
-    return this.invoicesService.create(createInvoiceDto);
+    createInvoiceDto.userId = req.user.userId;
+		let user = await this.usersService.findOne(req.user.userId);
+		if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    createInvoiceDto.username = user.name;
+    return this.invoicesService.create(createInvoiceDto); 
   }
 
   @Put(':id')

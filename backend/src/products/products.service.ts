@@ -13,6 +13,10 @@ export class ProductsService {
     return this.productModel.find().exec();
   }
 
+  async findAllForUser(): Promise<Product[]> {
+    return this.productModel.find({ status: 'active' }).exec();
+  }
+
   async findOne(id: string): Promise<Product | null> {
     const product = await this.productModel.findById(id).exec();
     return product;

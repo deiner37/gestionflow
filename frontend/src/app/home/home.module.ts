@@ -7,16 +7,30 @@ import { InvoicesComponent } from '../components/invoices/invoices.component';
 //import { UsersComponent } from '../components/users/';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from '../components/users/users.component';
+import { HomeGuard } from './home.guard';
+import { CartComponent } from '../components/cart/cart.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', component: DashboardComponent },
+      { 
+				path: '', 
+				component: DashboardComponent,
+				canActivate: [HomeGuard], 
+			},
       { path: 'products', component: ProductsComponent },
-      { path: 'invoices', component: InvoicesComponent },
-      { path: 'users', component: UsersComponent },
+      { 
+				path: 'invoices', 
+				component: InvoicesComponent
+			},
+      { 
+				path: 'users', 
+				component: UsersComponent,
+				canActivate: [HomeGuard], 
+			},
+			{ path: 'cart', component: CartComponent }
     ],
   },
 ];

@@ -20,6 +20,9 @@ export class CreateInvoiceDto {
   @IsString()
   userId: string;
 
+  @IsString()
+  username: string;
+
   @IsArray()
   @ArrayMinSize(1)
   products: InvoiceProduct[];

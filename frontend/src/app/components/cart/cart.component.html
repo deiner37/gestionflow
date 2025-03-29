@@ -1,0 +1,47 @@
+<div class="products-container container py-5">
+	<div class="row justify-content-center">
+		<div class="col-md-10">
+
+			<h2>Your Cart</h2>
+			<div *ngIf="cartItems.length === 0; else cartContent">
+				<p>Your cart is empty.</p>
+			</div>
+
+			<ng-template #cartContent>
+				<table>
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+							<th>Quantity</th>
+							<th>Total</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of cartItems">
+							<td>{{ item.name }}</td>
+							<td>{{ item.price | currency }}</td>
+							<td>
+								<input type="number" id="item-{{ item._id || 0 }}" [(ngModel)]="item.quantity" min="1" [max]="item.stock" (ngModelChange)="updateQuantity(item)" class="quantity-input"/> 
+							</td>
+							<td>{{ item.price * item.quantity | currency }}</td>
+							<td>
+								<button (click)="removeFromCart(item)">Remove</button>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3">Total</td>
+							<td>{{ getTotal() | currency }}</td>
+							<td>
+								<button (click)="checkout()" [disabled]="cartItems.length === 0">Place Order</button>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</ng-template>
+		</div>
+	</div>
+</div>

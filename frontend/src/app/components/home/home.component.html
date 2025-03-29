@@ -1,11 +1,35 @@
-
-<nav class="sidebar bg-dark text-white p-3" style="width: 250px; height: 100vh; position: fixed; top: 0; left: 0; z-index: 1000;">
-  <div class="sidebar-header mb-4">
-    <h5 class="text-center">GestioFlow</h5>
+<nav class="top-navbar bg-dark text-white d-flex justify-content-between align-items-center px-4" 
+     style="height: 60px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
+  
+  <div class="d-flex align-items-center">
+    <h5 class="m-0">GestioFlow</h5>
+    
+    <!-- Enlaces alineados a la izquierda -->
+    <div class="d-flex flex-row align-items-center ms-4">
+      <a class="nav-link text-white mx-3" href="/home/products">Home</a>
+      <a class="nav-link text-white mx-3" href="/home/invoices">My Orders</a>
+    </div>
   </div>
+
+  <div class="navbar-actions">
+    <a *ngIf="!authService.isAdmin()" [routerLink]="['/home/cart']" class="text-white mx-3 position-relative" title="Cart">
+      <i class="fas fa-shopping-cart fa-lg"></i>
+      <span *ngIf="cartItemCount > 0" class="badge badge-pill badge-danger position-absolute" 
+            [ngClass]="badgeClass" style="top: -10px; right: -10px;">
+        {{ cartItemCount }}
+      </span>
+    </a>
+    <a (click)="logout()" class="text-white mx-3" style="cursor: pointer;" title="Logout">
+      <i class="fas fa-sign-out-alt fa-lg"></i>
+    </a>
+  </div>
+</nav>
+
+<!-- Sidebar (sin la opción de Logout) -->
+<nav class="sidebar bg-dark text-white p-3" style="width: 250px; height: calc(100vh - 60px); position: fixed; top: 60px; left: 0; z-index: 999;" *ngIf="authService.isAdmin()">
   <ul class="nav flex-column">
     <li class="nav-item mb-2">
-      <a class="nav-link text-white" href="#" [routerLink]="['/home']">Dashboard</a> 
+      <a class="nav-link text-white" href="#" [routerLink]="['/home']">Dashboard</a>
     </li>
     <li class="nav-item mb-2">
       <a class="nav-link text-white" href="#" [routerLink]="['/home/products']">Products</a>
@@ -13,15 +37,13 @@
     <li class="nav-item mb-2">
       <a class="nav-link text-white" href="#" [routerLink]="['/home/invoices']">Invoices</a>
     </li>
-    <li class="nav-item mb-2" *ngIf="authService.isAdmin()">
-      <a class="nav-link text-white" href="#" [routerLink]="['/home/users']">User Manager</a>
-    </li>
     <li class="nav-item mb-2">
-      <a class="nav-link text-white" (click)="logout()">Logout</a>
+      <a class="nav-link text-white" href="#" [routerLink]="['/home/users']">User Manager</a>
     </li>
   </ul>
 </nav>
 
-<div #contentContainer class="content-container" style="margin-left: 250px; padding: 20px; z-index: 1;">
+<!-- Contenido principal -->
+<div #contentContainer class="content-container" [ngClass]="{ admin_container: authService.isAdmin(), user_container: !authService.isAdmin()}">
   <router-outlet></router-outlet>
 </div>

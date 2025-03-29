@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Request, NotFoundException } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './product.schema';
 import { CreateProductDto } from './../auth/dto/create-product.dto';
@@ -15,7 +15,10 @@ export class ProductsController {
 
   @Get()
   @Roles(Role.User, Role.Admin)
-  findAll(): Promise<Product[]> {
+  findAll(@Request() req: any): Promise<Product[]> {
+		if (req.user.role === Role.User) {
+      return this.productsService.findAllForUser();
+    }
     return this.productsService.findAll();
   }
 
